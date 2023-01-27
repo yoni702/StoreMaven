@@ -15,4 +15,19 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file client/Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:$(date +%s)
+      
+      
+      docker push gcr.io/storemaven-375719/tap-game-backend:0.2
+      
+    - name: Push Docker GCR
+      # You may pin to the exact commit or the version.
+      # uses: RaccoonDev/push-docker-gcr@cbff6c0d9f259694f4c6bd036866eb63e1630712
+      uses: RaccoonDev/push-docker-gcr@v1
+      with:
+        # Google Container Registry Host
+        gcr_host: # optional, default is gcr.io
+        # Docker Image Name
+        image_name: 
+        # Docker Image Tag
+        image_tag: 
