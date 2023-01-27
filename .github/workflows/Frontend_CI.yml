@@ -15,7 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file client/Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:$(date +%s)
+      working-directory: /client
+      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:$(date +%s)
       
       
       
