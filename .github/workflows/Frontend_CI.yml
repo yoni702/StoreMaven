@@ -29,11 +29,21 @@ jobs:
     #     gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
 
 
+    # - name: Cloud Run Deploy
+    #   uses: fhgbaguidi/action-cloud-run@v2.0.9
+    #   with:
+    #     image: gcr.io/storemaven-375719/tap-game-frontend:5
+    #     service: tap-game-frontend
+    #     project: storemaven-375719
+    #     region: us-central1
+        # key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
     - name: Cloud Run Deploy
-      uses: fhgbaguidi/action-cloud-run@v2.0.9
+      uses: stefda/action-cloud-run@v1.8
       with:
         image: gcr.io/storemaven-375719/tap-game-frontend:5
         service: tap-game-frontend
         project: storemaven-375719
         region: us-central1
-        # key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+        service key:  ${{ secrets.GCLOUD_SERVICE_KEY }}
+
