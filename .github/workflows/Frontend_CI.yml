@@ -10,14 +10,14 @@ on:
 
 jobs:
   SetVars:
-      runs-on: ubuntu-latest  
-      steps:
-      - id: identify
-        run: |
-          export VersionDate="${{date +%s}}"
-          echo "::set-output name=VersionDate::${VersionDate}"
-      outputs:
-        VersionDate: ${{ steps.identify.outputs.VersionDate }}
+    runs-on: ubuntu-latest  
+    steps:
+    - id: identify
+      run: |
+        export VersionDate="${{date +%s}}"
+        echo "::set-output name=VersionDate::${VersionDate}"
+    outputs:
+      VersionDate: ${{ steps.identify.outputs.VersionDate }}
 
 
   Build&Push:
@@ -28,7 +28,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       working-directory: client/
-      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:${{ needs.SetVars.outputs.VersionDate }}
+      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:"${{ needs.SetVars.outputs.VersionDate }}"
 
     - name: Push Docker Image to GCR
     - uses: kurkop/push-docker-gcr@v1.2.2
