@@ -9,33 +9,22 @@ on:
 
 
 jobs:
-  SetVarsJob:
-    runs-on: ubuntu-latest  
-    steps:
-    - id: identify
-      run: |
-        export VersionDate="${{date +%s}}"
-        echo "::set-output name=VersionDate::${VersionDate}"
-    outputs:
-      VersionDate: ${{ steps.identify.outputs.VersionDate }}
-
-
   Build&Push:
-    needs: SetVarsJob
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Build the Docker image
       working-directory: client/
-      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:"${{ needs.SetVarsJob.outputs.VersionDate }}"
+      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:$(date +%s)
+    
 
     - name: Push Docker Image to GCR
     - uses: kurkop/push-docker-gcr@v1.2.2
       with:
         docker_image_name: tap-game-frontend
-        docker_image_tag: ${{VersionDate}}
+        docker_image_tag: 5
         dockerfile: server/Dockerfile
         gcr_host: gcr.io
         gcr_project_id: storemaven-375719
