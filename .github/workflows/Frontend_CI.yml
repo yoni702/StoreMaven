@@ -19,7 +19,7 @@ jobs:
       working-directory: client/
       run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:${{VersionDate}}
       
-    steps:
+
     - name: Push Docker Image to GCR
     - uses: kurkop/push-docker-gcr@v1.2.2
       with:
