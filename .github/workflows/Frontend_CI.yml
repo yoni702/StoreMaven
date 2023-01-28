@@ -18,9 +18,8 @@ jobs:
     #   run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:$(date +%s)
     
 
-    - uses: kurkop/push-docker-gcr@v1.2.2
     - name: Push Docker Image to GCR
-      working-directory: client/
+      uses: kurkop/push-docker-gcr@v1.2.2
       with:
         docker_image_name: tap-game-frontend
         docker_image_tag: 5
@@ -29,3 +28,5 @@ jobs:
         gcr_project_id: storemaven-375719
         gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
 
+
+      # working-directory: client/
