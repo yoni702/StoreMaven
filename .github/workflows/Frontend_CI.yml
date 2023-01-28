@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - uses: actions/checkout@v3
-    # - name: Build the Docker image
-    #   working-directory: client/
-    #   run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:$(date +%s)
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      working-directory: client/
+      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:5
     
 
     - name: Push Docker Image to GCR
