@@ -36,4 +36,4 @@ jobs:
         service: tap-game-frontend
         project: storemaven-375719
         region: us-central1
-        key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+        # key: ${{ secrets.GCLOUD_SERVICE_KEY }}
