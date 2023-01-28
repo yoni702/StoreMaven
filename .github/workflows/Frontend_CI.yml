@@ -12,6 +12,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
@@ -19,8 +20,8 @@ jobs:
       run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:${{VersionDate}}
       
  
-    - uses: kurkop/push-docker-gcr@v1.2.2
     - name: Push Docker Image to GCR
+    - uses: kurkop/push-docker-gcr@v1.2.2
       with:
         docker_image_name: tap-game-frontend
         docker_image_tag: ${{VersionDate}}
