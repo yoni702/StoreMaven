@@ -24,7 +24,7 @@ jobs:
       uses: kurkop/push-docker-gcr@v1.2.2
       with:
         docker_image_name: tap-game-backend
-        docker_image_tag: $(date +%s)
+        docker_image_tag: ${{date +%s}}
         dockerfile: server/Dockerfile
         gcr_host: gcr.io
         gcr_project_id: storemaven-375719
