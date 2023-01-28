@@ -1,8 +1,8 @@
-name: Backend CI
+name: Backend CI CD
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "master" ]
 
 
 jobs:
@@ -17,6 +17,11 @@ jobs:
       working-directory: server/
       run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-backend:5
       
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        project_id: storemaven-375719
+        credentials_json: '${{secrets.GCLOUD_SERVICE_KEY}}'
 
     - name: Push Docker Image to GCR
       uses: kurkop/push-docker-gcr@v1.2.2
@@ -27,3 +32,12 @@ jobs:
         gcr_host: gcr.io
         gcr_project_id: storemaven-375719
         gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+
+    - name: Deploy to Cloud Run
+      uses: google-github-actions/deploy-cloudrun@v1
+      with:
+        image: gcr.io/storemaven-375719/tap-game-backend:5
+        service: tap-game-backend
+        region: us-central1
+        project_id: storemaven-375719
