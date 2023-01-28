@@ -23,7 +23,7 @@ jobs:
       with:
         docker_image_name: tap-game-frontend
         docker_image_tag: 5
-        dockerfile: Dockerfile
+        dockerfile: client/Dockerfile
         gcr_host: gcr.io
         gcr_project_id: storemaven-375719
         gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
