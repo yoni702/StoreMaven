@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  Build&Push:
+  Build_Push:
 
     runs-on: ubuntu-latest
 
