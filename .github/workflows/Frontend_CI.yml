@@ -27,3 +27,17 @@ jobs:
         gcr_host: gcr.io
         gcr_project_id: storemaven-375719
         gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+
+    - name: Cloud Run Deploy
+      uses: fhgbaguidi/action-cloud-run@v2.0.9
+      with:
+        # image:  # Name of the docker image
+        registry: gcr.io/storemaven-375719/tap-game-frontend
+        tag: 5
+        service: tap-game-frontend
+        project: storemaven-375719
+        region: us-central1
+        key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+        # envfile: # File path to environment configuration  OPTIONAL
+        # serviceyamlfile: # File path to GCP cloud run service yaml configuration  OPTIONAL
