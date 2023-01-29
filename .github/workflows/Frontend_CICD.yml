@@ -1,22 +1,22 @@
-name: Backend CI CD
+name: Frontend CI CD
 
 on:
   push:
     branches: [ "master" ]
 
-
+    
 jobs:
-  build:
+  Build_Push:
 
     runs-on: ubuntu-latest
-    # if: startsWith(github.ref, 'refs/tags/prod-deploy')
+    if: startsWith(github.ref, 'refs/tags/prod-deploy')
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      working-directory: server/
-      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-backend:5
-      
+      working-directory: client/
+      run: docker build . --file Dockerfile --tag gcr.io/storemaven-375719/tap-game-frontend:5
+    
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v1
       with:
@@ -26,9 +26,9 @@ jobs:
     - name: Push Docker Image to GCR
       uses: kurkop/push-docker-gcr@v1.2.2
       with:
-        docker_image_name: tap-game-backend
+        docker_image_name: tap-game-frontend
         docker_image_tag: 5
-        dockerfile: server/Dockerfile
+        dockerfile: client/Dockerfile
         gcr_host: gcr.io
         gcr_project_id: storemaven-375719
         gcr_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
@@ -37,7 +37,10 @@ jobs:
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v1
       with:
-        image: gcr.io/storemaven-375719/tap-game-backend:5
-        service: tap-game-backend
+        image: gcr.io/storemaven-375719/tap-game-frontend:5
+        service: tap-game-frontend
         region: us-central1
         project_id: storemaven-375719
+
+
+
